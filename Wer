@@ -1,0 +1,123 @@
+# Создаем список контактов
+contacts = []
+
+# Функция для добавления нового контакта
+def add_contact():
+    # Получаем данные контакта от пользователя
+    key = input("Введите ключ контакта: ")
+    name = input("Введите имя контакта: ")
+    email = input("Введите адрес электронной почты контакта: ")
+    phone = input("Введите номер телефона контакта: ")
+    birthday = input("Введите день рождения контакта (формат ГГГГ-ММ-ДД): ")
+    note = input("Введите заметку о контакте: ")
+
+    # Создаем новый контакт
+    new_contact = {"key": key, "name": name, "email": email, "phone": phone, "birthday": birthday, "note": note}
+
+    # Добавляем новый контакт в список
+    contacts.append(new_contact)
+
+# Функция для поиска контакта по ключу
+def search_contact():
+    # Получаем ключ контакта от пользователя
+    key_to_search = input("Введите ключ контакта, который нужно найти: ")
+
+    # Ищем контакт в списке
+    for contact in contacts:
+        if contact["key"] == key_to_search:
+            return contact
+
+    # Если контакт не найден, возвращаем None
+    return None
+
+# Функция для редактирования контакта
+def edit_contact():
+    # Получаем ключ контакта от пользователя
+    key_to_edit = input("Введите ключ контакта, который нужно отредактировать: ")
+
+    # Ищем контакт в списке
+    contact_to_edit = search_contact(key_to_edit)
+
+    # Если контакт не найден, выводим сообщение об ошибке
+    if contact_to_edit is None:
+        print("Контакт не найден.")
+        return
+
+    # Получаем новые данные контакта от пользователя
+    new_name = input("Введите новое имя контакта: ")
+    new_email = input("Введите новый адрес электронной почты контакта: ")
+    new_phone = input("Введите новый номер телефона контакта: ")
+    new_birthday = input("Введите новый день рождения контакта (формат ГГГГ-ММ-ДД): ")
+    new_note = input("Введите новую заметку о контакте: ")
+
+    # Обновляем данные контакта
+    contact_to_edit["name"] = new_name
+    contact_to_edit["email"] = new_email
+    contact_to_edit["phone"] = new_phone
+    contact_to_edit["birthday"] = new_birthday
+    contact_to_edit["note"] = new_note
+
+# Функция для удаления контакта
+def delete_contact():
+    # Получаем ключ контакта от пользователя
+    key_to_delete = input("Введите ключ контакта, который нужно удалить: ")
+
+    # Ищем контакт в списке
+    contact_to_delete = search_contact(key_to_delete)
+
+    # Если контакт не найден, выводим сообщение об ошибке
+    if contact_to_delete is None:
+        print("Контакт не найден.")
+        return
+
+    # Удаляем контакт из списка
+    contacts.remove(contact_to_delete)
+
+# Функция для вывода списка контактов
+def list_contacts():
+    # Выводим список контактов
+    for contact in contacts:
+        print_contact(contact)
+
+# Функция для вывода данных контакта
+def print_contact(contact):
+    print("Ключ:", contact["key"])
+    print("Имя:", contact["name"])
+    print("Почта:", contact["email"])
+    print("Номер телефона:", contact["phone"])
+    print("День рождения:", contact["birthday"])
+    print("Заметка:", contact["note"])
+
+# Функция для вывода меню
+def show_menu():
+    print("nМеню:")
+    print("1. Добавить контакт")
+    print("2. Редактировать контакт")
+    print("3. Удалить контакт")
+    print("4. Поиск контакта")
+    print("5. Вывести список контактов")
+    print("6. Выход")
+
+# Основной цикл программы
+while True:
+    # Выводим меню
+    show_menu()
+
+    # Получаем выбор пользователя
+    choice = input("Введите номер пункта меню: ")
+
+    # Выполняем соответствующее действие
+    if choice == "1":
+        add_contact()
+    elif choice == "2":
+        edit_contact()
+    elif choice == "3":
+        delete_contact()
+    elif choice == "4":
+        search_contact()
+    elif choice == "5":
+        list_contacts()
+    elif choice == "6":
+        break
+    else:
+        print("Неверный выбор.")
